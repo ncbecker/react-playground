@@ -10,6 +10,21 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
+function getHue(passwordLength = 0) {
+  return Math.min(passwordLength * 10, 100);
+}
+const Input = styled.input`
+  background: hsl(${(props) => getHue(props.value.length)}, 60%, 60%);
+`;
+
+// const Input = styled.input`
+//   background: ${(props) =>
+//     `hsl(${
+//       props.value.length * 6 > 120 ? 120 : props.value.length * 6
+//     }, 100%, 50%)`};
+//   transition: background 0.5s ease-in-out;
+// `;
+
 // function setColor(length) {
 //   let color = 'red';
 //   if (length > 9) {
@@ -20,22 +35,16 @@ import styled from 'styled-components/macro';
 //   return color;
 // }
 
-const Input = styled.input`
-  background: ${(props) =>
-    `hsl(${
-      props.value.length * 6 > 120 ? 120 : props.value.length * 6
-    }, 100%, 50%)`};
-  transition: background 0.5s ease-in-out;
-`;
-
 // function handleOnChange() {
 // }
 
 const PasswordInput = ({ value, onChange }) => {
   const [password, setPassword] = useState(value);
+
   useEffect(() => {
     onChange(password);
   }, [password]);
+
   return (
     <Input
       type="password"
