@@ -10,9 +10,27 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
+// function setColor(length) {
+//   let color = 'red';
+//   if (length > 9) {
+//     color = 'green';
+//   } else if (length > 4) {
+//     color = 'orange';
+//   }
+//   return color;
+// }
+
 const Input = styled.input`
-  background: red;
+  background: ${(props) =>
+    `hsl(${
+      props.value.length * 6 > 120 ? 120 : props.value.length * 6
+    }, 100%, 50%)`};
+  transition: background 0.5s ease-in-out;
 `;
+
+// function handleOnChange() {
+// }
+
 const PasswordInput = ({ value, onChange }) => {
   const [password, setPassword] = useState(value);
   useEffect(() => {
@@ -26,11 +44,14 @@ const PasswordInput = ({ value, onChange }) => {
     />
   );
 };
+
 PasswordInput.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
+
 PasswordInput.defaultProps = {
   value: '',
 };
+
 export default PasswordInput;
