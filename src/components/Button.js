@@ -44,20 +44,17 @@ const StorybookButton = styled.button`
 /**
  * Primary UI component for user interaction
  */
-const Button = ({ primary, backgroundColor, size, label, ...props }) => {
-  return (
-    <StorybookButton
-      type="button"
-      primary={primary}
-      size={size}
-      style={backgroundColor && { backgroundColor }}
-      {...props}
-    >
-      {label}
-    </StorybookButton>
-  );
-};
-
+const Button = ({ primary, backgroundColor, size, label, ...props }) => (
+  <StorybookButton
+    type="button"
+    primary={primary}
+    size={size}
+    style={backgroundColor && { backgroundColor }}
+    {...props}
+  >
+    {label}
+  </StorybookButton>
+);
 Button.propTypes = {
   /**
    * Is this the principal call to action on the page?
