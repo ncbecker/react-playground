@@ -1,4 +1,5 @@
-import styled, { keyframes } from 'styled-components/macro';
+import styled, { keyframes, ThemeProvider } from 'styled-components/macro';
+import { useState } from 'react';
 import GlobalStyle from './GlobalStyle';
 import logo from './logo.svg';
 
@@ -15,14 +16,14 @@ const Wrapper = styled.div`
   text-align: center;
 
   header {
-    background-color: #282c34;
+    background-color: ${(props) => props.theme.bg};
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     font-size: calc(10px + 2vmin);
-    color: white;
+    color: ${(props) => props.theme.fc};
   }
 
   header img {
@@ -40,28 +41,46 @@ const Wrapper = styled.div`
 const Link = styled.a`
   color: #61dafb;
 `;
+const light = {
+  bg: 'white',
+  fc: 'black',
+};
+const dark = {
+  bg: 'black',
+  fc: 'white',
+};
 
 function App() {
+  const [theme, setTheme] = useState(light);
+
   return (
     <>
-      <GlobalStyle />
-      <Wrapper>
-        <header>
-          <img src={logo} alt="logo" />
-          <p>
-            Edit
-            <code>src/App.js</code>
-            and save to reload.
-          </p>
-          <Link
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Wrapper>
+          <button
+            type="button"
+            onClick={() => setTheme(theme === dark ? light : dark)}
           >
-            Learn React
-          </Link>
-        </header>
-      </Wrapper>
+            Toggle theme
+          </button>
+          <header>
+            <img src={logo} alt="logo" />
+            <p>
+              Edit
+              <code>src/App.js</code>
+              and save to reload.
+            </p>
+            <Link
+              href="https://reactjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn React
+            </Link>
+          </header>
+        </Wrapper>
+      </ThemeProvider>
     </>
   );
 }
